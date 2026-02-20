@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Loan - Monarch Insurance Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #154a32;
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1001;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #154a32;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .logout-nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            color: #ff6b6b;
+        }
+
+        .logout-nav-item:hover {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left-color: #ff6b6b;
+        }
+
+        .logout-nav-item-icon {
+            font-size: 20px;
+        }
+
+        .logout-nav-item-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-item-icon {
+            font-size: 20px;
+        }
+
+        .nav-item-text {
+            font-size: 14px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding-top: 70px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+            position: relative;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            width: calc(100% - 260px);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #1a5f3f;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #154a32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(21, 74, 50, 0.3);
+        }
+
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 15px auto;
+            padding: 0 20px;
+        }
+
+        .withdraw-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        .loan-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .loan-selection-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .loan-selection-card {
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .loan-selection-card:nth-child(1) { animation-delay: 0.1s; }
+        .loan-selection-card:nth-child(2) { animation-delay: 0.2s; }
+        .loan-selection-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .loan-selection-card:hover {
+            border-color: #1a5f3f;
+            box-shadow: 0 6px 20px rgba(26, 95, 63, 0.2);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .loan-selection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .loan-selection-id {
+            color: #666;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .loan-selection-amount {
+            color: #1a5f3f;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .loan-selection-label {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .loan-selection-date {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 12px;
+        }
+
+        .empty-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-message {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .withdraw-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .withdraw-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .loan-info-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .info-value.amount {
+            color: #1a5f3f;
+            font-size: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-section {
+            margin-bottom: 15px;
+        }
+
+        .mobile-money-section {
+            margin-bottom: 15px;
+        }
+
+        .section-label {
+            color: #333;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .mobile-money-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mobile-money-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .mobile-money-option:hover {
+            border-color: #1a5f3f;
+            background: #f0f7f4;
+        }
+
+        .mobile-money-option.selected {
+            border-color: #1a5f3f;
+            background: #f0f7f4;
+        }
+
+        .mobile-money-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .mobile-money-name {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .phone-number-section {
+            margin-bottom: 15px;
+        }
+
+        .phone-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phone-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+
+        .phone-note {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .amount-section {
+            margin-bottom: 15px;
+        }
+
+        .amount-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .amount-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+
+        .amount-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .amount-btn {
+            padding: 8px 16px;
+            border: 1px solid #1a5f3f;
+            border-radius: 6px;
+            background: white;
+            color: #1a5f3f;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amount-btn:hover {
+            background: #f0f7f4;
+        }
+
+        .amount-note {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .amount-error {
+            color: #c33;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .amount-error.show {
+            display: block;
+        }
+
+        .otp-section {
+            margin-bottom: 15px;
+        }
+
+        .otp-input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+
+        .otp-input.filled {
+            border-color: #1a5f3f;
+            background: #f0f7f4;
+        }
+
+        .otp-message {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .otp-message strong {
+            color: #1a5f3f;
+        }
+
+        .resend-otp {
+            color: #1a5f3f;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .resend-otp:hover {
+            color: #154a32;
+        }
+
+        .resend-otp.disabled {
+            color: #999;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-back {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-back:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-withdraw {
+            background: #1a5f3f;
+            color: white;
+        }
+
+        .btn-withdraw:hover {
+            background: #154a32;
+        }
+
+        .btn-withdraw:disabled {
+            background: #8fa89a;
+            cursor: not-allowed;
+        }
+
+        /* Snackbar Notification Styles */
+        .snackbar-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .snackbar {
+            background: #1a5f3f;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 320px;
+            max-width: 500px;
+            animation: slideInUp 0.3s ease-out;
+            position: relative;
+        }
+
+        .snackbar.success {
+            background: #1a5f3f;
+        }
+
+        .snackbar-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .snackbar-content {
+            flex: 1;
+        }
+
+        .snackbar-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .snackbar-message {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .snackbar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+
+        .snackbar-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutDown {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+
+        .snackbar.hiding {
+            animation: slideOutDown 0.3s ease-out forwards;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 13px;
+            left: 13px;
+            z-index: 10002;
+            background: #154a32;
+            color: white;
+            border: none;
+            padding: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #1a5f3f;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+                padding: 10px 15px 10px 60px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 10px auto;
+            }
+
+            .snackbar-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .snackbar {
+                min-width: auto;
+                max-width: 100%;
+            }
+
+            .loan-selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-money-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .withdraw-card {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .withdraw-title {
+                font-size: 20px;
+            }
+
+            .loan-selection-card {
+                padding: 12px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/logo.png" alt="Monarch Insurance Logo">
+            </div>
+            <div class="sidebar-title">Monarch Insurance Agency Portal</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-text">Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='loan-application.html'">
+                <span class="nav-item-icon">💰</span>
+                <span class="nav-item-text">Apply for Loan</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='my-loans.html'">
+                <span class="nav-item-icon">📋</span>
+                <span class="nav-item-text">View my Loans</span>
+            </div>
+            <div class="nav-item active">
+                <span class="nav-item-icon">💸</span>
+                <span class="nav-item-text">Withdraw</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='repay-loan.html'">
+                <span class="nav-item-icon">💳</span>
+                <span class="nav-item-text">Repay Loan</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='profile.html'">
+                <span class="nav-item-icon">👤</span>
+                <span class="nav-item-text">My Profile</span>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="logout-nav-item" onclick="logout()">
+                <span class="logout-nav-item-icon">🚪</span>
+                <span class="logout-nav-item-text">Logout</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+    <div class="main-content">
+        <div class="header">
+            <div></div>
+            <div class="header-right">
+                <div class="user-info" id="userEmail">user@example.com</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Loan Selection Container -->
+            <div id="loanSelectionContainer" class="withdraw-card">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Withdraw Form Container -->
+            <div id="withdrawFormContainer" class="withdraw-card" style="display: none;">
+                <h1 class="withdraw-title">Withdraw Loan</h1>
+                <p class="withdraw-subtitle">Transfer funds from your transaction account to mobile money</p>
+
+                <div class="loan-info-box">
+                    <div class="info-row">
+                        <span class="info-label">Loan ID</span>
+                        <span class="info-value" id="loanId">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Available Balance</span>
+                        <span class="info-value amount" id="availableBalance">KSH 0</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="amount-section">
+                        <div class="section-label">Withdrawal Amount</div>
+                        <div class="amount-input-group">
+                            <span style="color: #666; font-size: 18px; font-weight: 600;">KSH</span>
+                            <input type="number" class="amount-input" id="withdrawalAmount" placeholder="Enter amount" min="1" step="1">
+                        </div>
+                        <div class="amount-actions">
+                            <button type="button" class="amount-btn" onclick="setAmount(0.25)">25%</button>
+                            <button type="button" class="amount-btn" onclick="setAmount(0.5)">50%</button>
+                            <button type="button" class="amount-btn" onclick="setAmount(0.75)">75%</button>
+                            <button type="button" class="amount-btn" onclick="setAmount(1)">100%</button>
+                        </div>
+                        <div class="amount-note">Available: <strong id="availableAmountDisplay">KSH 0</strong></div>
+                        <div class="amount-error" id="amountError">Amount cannot exceed available balance</div>
+                    </div>
+
+                    <div class="phone-number-section">
+                        <div class="section-label">Mobile Number</div>
+                        <div class="phone-input-group">
+                            <input type="tel" class="phone-input" id="phoneNumber" placeholder="Enter mobile number" maxlength="12">
+                        </div>
+                        <div class="phone-note">Funds will be sent to this registered mobile number</div>
+                    </div>
+                </div>
+
+                <div class="mobile-money-section">
+                    <div class="section-label">Select Mobile Money Provider</div>
+                    <div class="mobile-money-options">
+                        <div class="mobile-money-option" onclick="selectProvider('mpesa')">
+                            <div class="mobile-money-icon">📱</div>
+                            <div class="mobile-money-name">M-PESA</div>
+                        </div>
+                        <div class="mobile-money-option" onclick="selectProvider('airtel')">
+                            <div class="mobile-money-icon">📱</div>
+                            <div class="mobile-money-name">Airtel Money</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="otp-section" id="otpSection" style="display: none;">
+                    <div class="section-label">Enter OTP</div>
+                    <p class="otp-message">
+                        An OTP has been sent to <strong id="otpPhoneNumber">-</strong>.<br>
+                        Please enter the 6-digit code to complete the withdrawal.
+                    </p>
+                    <div class="error-message" id="errorMessage">Invalid OTP. Please try again.</div>
+                    <div class="otp-input-container" id="otpContainer">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp1">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp2">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp3">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp4">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp5">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" id="otp6">
+                    </div>
+                    <div class="resend-otp" id="resendOtp" onclick="resendOTP()">Resend OTP</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-back" onclick="goBack()">
+                        ← Back
+                    </button>
+                    <button type="button" class="btn btn-withdraw" id="withdrawBtn" onclick="processWithdrawal()">
+                        Withdraw
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snackbar Notification Container -->
+    <div class="snackbar-container" id="snackbarContainer"></div>
+
+    <script>
+        let selectedProvider = null;
+        let loanData = null;
+
+        // Check if user is logged in
+        function checkAuth() {
+            const email = localStorage.getItem('user_email');
+            if (!email) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = email;
+        }
+
+        function logout() {
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('access_token');
+            window.location.href = 'login.html';
+        }
+
+        function navigateTo(page) {
+            alert(`${page} feature will be available soon!`);
+        }
+
+        function goBack() {
+            // If we're on the withdraw form, go back to loan selection
+            const urlParams = new URLSearchParams(window.location.search);
+            const loanId = urlParams.get('loanId');
+            
+            if (loanId) {
+                // Remove loanId from URL to show selection
+                window.location.href = 'withdraw-loan.html';
+            } else {
+                // Go to my loans page
+                window.location.href = 'my-loans.html';
+            }
+        }
+
+        // Load loan data from URL parameters
+        function loadLoanData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const loanId = urlParams.get('loanId');
+            
+            // Get loans from localStorage
+            const storedLoans = localStorage.getItem('user_loans');
+            let loans = [];
+            
+            if (storedLoans) {
+                try {
+                    loans = JSON.parse(storedLoans);
+                } catch (e) {
+                    loans = [];
+                }
+            }
+
+            // If no loanId provided, show loan selection
+            if (!loanId) {
+                showLoanSelection(loans);
+                return;
+            }
+
+            // Find the specific loan
+            loanData = loans.find(loan => loan.id === loanId);
+            
+            if (loanData) {
+                // Hide loan selection, show withdraw form
+                document.getElementById('loanSelectionContainer').style.display = 'none';
+                document.getElementById('withdrawFormContainer').style.display = 'block';
+                
+                document.getElementById('loanId').textContent = loanData.id;
+                // Available balance is the net disbursement amount
+                const availableBalance = parseFloat(loanData.netDisbursement) || 0;
+                document.getElementById('availableBalance').textContent = 'KSH ' + availableBalance.toLocaleString();
+                document.getElementById('availableAmountDisplay').textContent = 'KSH ' + availableBalance.toLocaleString();
+                
+                // Set max attribute for amount input
+                document.getElementById('withdrawalAmount').setAttribute('max', availableBalance);
+            } else {
+                // Loan not found, show selection
+                showLoanSelection(loans);
+            }
+        }
+
+        function showLoanSelection(loans) {
+            // Filter loans with available balance
+            const availableLoans = loans.filter(loan => {
+                const availableBalance = parseFloat(loan.netDisbursement) || 0;
+                return availableBalance > 0 && loan.status === 'active';
+            });
+
+            const selectionContainer = document.getElementById('loanSelectionContainer');
+            const withdrawForm = document.getElementById('withdrawFormContainer');
+            
+            if (availableLoans.length === 0) {
+                selectionContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">💰</div>
+                        <h2 class="empty-title">No Loans Available for Withdrawal</h2>
+                        <p class="empty-message">You don't have any loans with available balance to withdraw. Apply for a loan first.</p>
+                        <button class="btn btn-primary" onclick="window.location.href='loan-application.html'" style="margin-top: 20px;">
+                            Apply for Loan
+                        </button>
+                    </div>
+                `;
+            } else {
+                selectionContainer.innerHTML = `
+                    <h2 class="section-title" style="margin-top: 0;">Select Loan to Withdraw</h2>
+                    <div class="loan-selection-grid">
+                        ${availableLoans.map(loan => {
+                            const availableBalance = parseFloat(loan.netDisbursement) || 0;
+                            return `
+                                <div class="loan-selection-card" onclick="selectLoan('${loan.id}')">
+                                    <div class="loan-selection-header">
+                                        <div class="loan-selection-id">${loan.id}</div>
+                                        <span class="loan-status status-${loan.status}">${loan.status.toUpperCase()}</span>
+                                    </div>
+                                    <div class="loan-selection-amount">KSH ${availableBalance.toLocaleString()}</div>
+                                    <div class="loan-selection-label">Available Balance</div>
+                                    <div class="loan-selection-date">Disbursed: ${loan.disbursedDate || 'N/A'}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            selectionContainer.style.display = 'block';
+            withdrawForm.style.display = 'none';
+        }
+
+        function selectLoan(loanId) {
+            window.location.href = `withdraw-loan.html?loanId=${loanId}`;
+        }
+
+        function selectProvider(provider) {
+            selectedProvider = provider;
+            document.querySelectorAll('.mobile-money-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        function setAmount(percentage) {
+            const availableBalance = parseFloat(loanData.netDisbursement) || 0;
+            const amount = Math.floor(availableBalance * percentage);
+            document.getElementById('withdrawalAmount').value = amount;
+            document.getElementById('amountError').classList.remove('show');
+        }
+
+        function processWithdrawal() {
+            // Validate inputs
+            if (!selectedProvider) {
+                alert('Please select a mobile money provider');
+                return;
+            }
+
+            const withdrawalAmountInput = document.getElementById('withdrawalAmount');
+            const withdrawalAmount = parseFloat(withdrawalAmountInput.value) || 0;
+            const availableBalance = parseFloat(loanData.netDisbursement) || 0;
+
+            if (!withdrawalAmount || withdrawalAmount <= 0) {
+                document.getElementById('amountError').textContent = 'Please enter a valid withdrawal amount';
+                document.getElementById('amountError').classList.add('show');
+                return;
+            }
+
+            if (withdrawalAmount > availableBalance) {
+                document.getElementById('amountError').textContent = 'Amount cannot exceed available balance';
+                document.getElementById('amountError').classList.add('show');
+                return;
+            }
+
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            if (!phoneNumber || phoneNumber.length < 10) {
+                alert('Please enter a valid mobile number');
+                return;
+            }
+
+            const otpSection = document.getElementById('otpSection');
+            const withdrawBtn = document.getElementById('withdrawBtn');
+
+            // If OTP section is hidden, show it and send OTP
+            if (otpSection.style.display === 'none') {
+                otpSection.style.display = 'block';
+                document.getElementById('otpPhoneNumber').textContent = phoneNumber;
+                withdrawBtn.textContent = 'Complete Withdrawal';
+                
+                /*
+                 * BACKEND FUNCTIONALITY - Send OTP:
+                 * 
+                 * The system will send an OTP to the registered mobile number
+                 * for withdrawal verification.
+                 * 
+                 * This will be implemented in the backend later.
+                 */
+                
+                // Simulate OTP sending
+                console.log(`OTP sent to ${phoneNumber} for withdrawal verification`);
+                alert(`OTP has been sent to ${phoneNumber}. Please enter the code to complete withdrawal.`);
+                
+                // Focus first OTP input
+                document.getElementById('otp1').focus();
+                return;
+            }
+
+            // If OTP section is visible, verify OTP and process withdrawal
+            const otp = Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
+            
+            if (otp.length !== 6) {
+                document.getElementById('errorMessage').classList.add('show');
+                return;
+            }
+
+            withdrawBtn.disabled = true;
+            withdrawBtn.textContent = 'Processing...';
+
+            /*
+             * WITHDRAWAL TO MOBILE MONEY PROCESS:
+             * 
+             * 1. From within the Monarch Portal, the customer selects "Withdraw Loan"
+             * 2. The system uses the registered mobile number to initiate the settlement
+             * 3. The bank processes:
+             *    - Transfer from the transaction account
+             *    - Settlement via mobile money (M-PESA or Airtel Money)
+             * 4. Customer receives funds instantly
+             * 
+             * BACKEND IMPLEMENTATION:
+             * - POST /api/loan/withdraw
+             * - Request: { loanId, provider, phoneNumber, otp }
+             * - Backend will:
+             *   1. Verify OTP
+             *   2. Transfer from transaction account
+             *   3. Process mobile money settlement
+             *   4. Update account balances
+             */
+
+            // Simulate withdrawal processing
+            setTimeout(() => {
+                // For demo, accept OTP "123456"
+                if (otp === '123456') {
+                    // Update transaction account balance (deduct withdrawal amount)
+                    let currentTransactionBalance = parseFloat(localStorage.getItem('transaction_balance')) || 0;
+                    currentTransactionBalance = Math.max(0, currentTransactionBalance - withdrawalAmount);
+                    localStorage.setItem('transaction_balance', currentTransactionBalance);
+
+                    // Update loan's net disbursement (reduce available balance)
+                    const storedLoans = localStorage.getItem('user_loans');
+                    if (storedLoans) {
+                        try {
+                            const loans = JSON.parse(storedLoans);
+                            const loanIndex = loans.findIndex(loan => loan.id === loanData.id);
+                            if (loanIndex !== -1) {
+                                loans[loanIndex].netDisbursement = Math.max(0, (parseFloat(loans[loanIndex].netDisbursement) || 0) - withdrawalAmount);
+                                localStorage.setItem('user_loans', JSON.stringify(loans));
+                            }
+                        } catch (e) {
+                            console.error('Error updating loan data:', e);
+                        }
+                    }
+
+                    // Store withdrawal record
+                    const withdrawalRecord = {
+                        loanId: loanData.id,
+                        amount: withdrawalAmount,
+                        provider: selectedProvider,
+                        phoneNumber: phoneNumber,
+                        date: new Date().toISOString().split('T')[0],
+                        timestamp: Date.now()
+                    };
+                    
+                    // Store withdrawals history
+                    let withdrawals = [];
+                    const storedWithdrawals = localStorage.getItem('withdrawals');
+                    if (storedWithdrawals) {
+                        try {
+                            withdrawals = JSON.parse(storedWithdrawals);
+                        } catch (e) {
+                            withdrawals = [];
+                        }
+                    }
+                    withdrawals.push(withdrawalRecord);
+                    localStorage.setItem('withdrawals', JSON.stringify(withdrawals));
+
+                    // Show success notification
+                    showWithdrawalSuccess(withdrawalAmount, selectedProvider, phoneNumber);
+                    
+                    // Redirect to my loans after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'my-loans.html';
+                    }, 2000);
+                } else {
+                    document.getElementById('errorMessage').classList.add('show');
+                    withdrawBtn.disabled = false;
+                    withdrawBtn.textContent = 'Complete Withdrawal';
+                    // Clear OTP inputs
+                    document.querySelectorAll('.otp-input').forEach(input => {
+                        input.value = '';
+                        input.classList.remove('filled');
+                    });
+                    document.getElementById('otp1').focus();
+                }
+            }, 2000);
+        }
+
+        function showWithdrawalSuccess(amount, provider, phoneNumber) {
+            const providerName = provider === 'mpesa' ? 'M-PESA' : 'Airtel Money';
+            const snackbarContainer = document.getElementById('snackbarContainer');
+            
+            const snackbar = document.createElement('div');
+            snackbar.className = 'snackbar success';
+            snackbar.innerHTML = `
+                <div class="snackbar-icon">✓</div>
+                <div class="snackbar-content">
+                    <div class="snackbar-title">Withdrawal Successful!</div>
+                    <div class="snackbar-message">
+                        KSH ${amount.toLocaleString()} has been sent to ${phoneNumber} via ${providerName}. 
+                        Funds will be available instantly.
+                    </div>
+                </div>
+                <button class="snackbar-close" onclick="closeSnackbar(this)">×</button>
+            `;
+            
+            snackbarContainer.appendChild(snackbar);
+            
+            // Auto-dismiss after 8 seconds
+            setTimeout(() => {
+                closeSnackbar(snackbar.querySelector('.snackbar-close'));
+            }, 8000);
+        }
+
+        function closeSnackbar(closeButton) {
+            const snackbar = closeButton.closest('.snackbar');
+            if (snackbar) {
+                snackbar.classList.add('hiding');
+                setTimeout(() => {
+                    snackbar.remove();
+                }, 300);
+            }
+        }
+
+        function resendOTP() {
+            const resendBtn = document.getElementById('resendOtp');
+            if (resendBtn.classList.contains('disabled')) return;
+
+            resendBtn.classList.add('disabled');
+            resendBtn.textContent = 'Resending...';
+
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            
+            setTimeout(() => {
+                resendBtn.classList.remove('disabled');
+                resendBtn.textContent = 'Resend OTP';
+                alert(`A new OTP has been sent to ${phoneNumber}.`);
+                
+                // Clear OTP inputs
+                document.querySelectorAll('.otp-input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('filled');
+                });
+                document.getElementById('otp1').focus();
+            }, 2000);
+        }
+
+        // OTP input handling
+        const otpInputs = document.querySelectorAll('.otp-input');
+        
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+                if (value && /[0-9]/.test(value)) {
+                    e.target.classList.add('filled');
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                } else {
+                    e.target.classList.remove('filled');
+                }
+                document.getElementById('errorMessage').classList.remove('show');
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').trim();
+                if (/^\d{6}$/.test(pastedData)) {
+                    pastedData.split('').forEach((digit, i) => {
+                        if (otpInputs[i]) {
+                            otpInputs[i].value = digit;
+                            otpInputs[i].classList.add('filled');
+                        }
+                    });
+                    otpInputs[5].focus();
+                }
+            });
+        });
+
+        // Validate withdrawal amount input
+        document.getElementById('withdrawalAmount').addEventListener('input', function(e) {
+            const amount = parseFloat(e.target.value) || 0;
+            const availableBalance = parseFloat(loanData?.netDisbursement) || 0;
+            const amountError = document.getElementById('amountError');
+            
+            if (amount > availableBalance) {
+                amountError.textContent = 'Amount cannot exceed available balance';
+                amountError.classList.add('show');
+            } else if (amount <= 0 && e.target.value !== '') {
+                amountError.textContent = 'Amount must be greater than 0';
+                amountError.classList.add('show');
+            } else {
+                amountError.classList.remove('show');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Check authentication and load loan data on page load
+        checkAuth();
+        loadLoanData();
+    </script>
+</body>
+</html>

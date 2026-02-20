@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Monarch Insurance Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #154a32;
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1001;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #154a32;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .logout-nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            color: #ff6b6b;
+            animation: slideInLeft 0.5s ease-out 0.45s both;
+        }
+
+        .logout-nav-item:hover {
+            background-color: rgba(255, 107, 107, 0.15);
+            border-left-color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        .logout-nav-item-icon {
+            font-size: 20px;
+        }
+
+        .logout-nav-item-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            animation: slideInLeft 0.5s ease-out both;
+        }
+
+        .nav-item:nth-child(1) { animation-delay: 0.1s; }
+        .nav-item:nth-child(2) { animation-delay: 0.15s; }
+        .nav-item:nth-child(3) { animation-delay: 0.2s; }
+        .nav-item:nth-child(4) { animation-delay: 0.25s; }
+        .nav-item:nth-child(5) { animation-delay: 0.3s; }
+        .nav-item:nth-child(6) { animation-delay: 0.35s; }
+        .nav-item:nth-child(7) { animation-delay: 0.4s; }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-item-icon {
+            font-size: 20px;
+        }
+
+        .nav-item-text {
+            font-size: 14px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding-top: 70px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+            position: relative;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .header {
+            background-color: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            width: calc(100% - 260px);
+        }
+
+        .header h2 {
+            font-size: 24px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #1a5f3f;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #154a32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(21, 74, 50, 0.3);
+        }
+
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        .welcome-section h1 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 0;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .action-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .action-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: #1a5f3f;
+        }
+
+        .action-card:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .action-card-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #1a5f3f;
+        }
+
+        .action-card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .action-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .loan-card {
+            background: linear-gradient(135deg, #1a5f3f 0%, #154a32 100%);
+            color: white;
+        }
+
+        .loan-card .action-card-icon {
+            color: white;
+        }
+
+        .loan-card h2 {
+            color: white;
+        }
+
+        .loan-card p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .accounts-section {
+            margin-bottom: 0;
+            animation: fadeIn 0.6s ease-out 0.3s both;
+        }
+
+        .section-header {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 0;
+        }
+
+        .account-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .account-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .account-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .account-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .account-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .account-type {
+            color: #666;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .account-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .account-icon.transaction {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .account-icon.loan {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .account-number {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .account-balance {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .account-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .summary-card:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+
+        .summary-card:nth-child(2) {
+            animation-delay: 0.25s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .summary-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .summary-value {
+            color: #333;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .summary-value.outstanding {
+            color: #f57c00;
+        }
+
+        .summary-value.approved {
+            color: #1a5f3f;
+        }
+
+        .credit-review-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInRight 0.6s ease-out 0.4s both;
+        }
+
+        .credit-review-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .credit-review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .credit-review-title-section {
+            flex: 1;
+        }
+
+        .credit-review-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .credit-review-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .credit-review-icon-btn {
+            width: 36px;
+            height: 36px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .credit-review-icon-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .credit-review-info-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .review-info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-info-icon {
+            font-size: 16px;
+            color: #666;
+            width: 20px;
+        }
+
+        .review-info-text {
+            flex: 1;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .review-info-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-review-compact {
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-review-compact:hover {
+            background: #1a5f3f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 95, 63, 0.3);
+        }
+
+        .btn-review-compact:active {
+            transform: translateY(0);
+        }
+
+        .btn-review-compact:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 13px;
+            left: 13px;
+            z-index: 10002;
+            background: #154a32;
+            color: white;
+            border: none;
+            padding: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #1a5f3f;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+                padding: 10px 15px 10px 60px;
+            }
+
+            .header h2 {
+                margin-left: 0;
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 10px auto;
+            }
+
+            .welcome-section {
+                padding: 15px;
+            }
+
+            .welcome-section h1 {
+                font-size: 22px;
+            }
+
+            .action-cards {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .accounts-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .credit-review-card {
+                padding: 15px;
+            }
+
+            .btn-review-compact {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .welcome-section h1 {
+                font-size: 20px;
+            }
+
+            .welcome-section p {
+                font-size: 14px;
+            }
+
+            .action-card {
+                padding: 15px;
+            }
+
+            .action-card-icon {
+                font-size: 28px;
+            }
+
+            .action-card h2 {
+                font-size: 18px;
+            }
+
+            .action-card p {
+                font-size: 14px;
+            }
+
+            .account-card,
+            .summary-card {
+                padding: 12px;
+            }
+
+            .summary-value {
+                font-size: 22px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/logo.png" alt="Monarch Insurance Logo">
+            </div>
+            <div class="sidebar-title">Monarch Insurance Agency Portal</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item active" onclick="navigateTo('dashboard')">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-text">Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="applyForLoan()">
+                <span class="nav-item-icon">💰</span>
+                <span class="nav-item-text">Apply for Loan</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='my-loans.html'">
+                <span class="nav-item-icon">📋</span>
+                <span class="nav-item-text">View my Loans</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='withdraw-loan.html'">
+                <span class="nav-item-icon">💸</span>
+                <span class="nav-item-text">Withdraw</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='repay-loan.html'">
+                <span class="nav-item-icon">💳</span>
+                <span class="nav-item-text">Repay Loan</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='credit-review.html'">
+                <span class="nav-item-icon">🔄</span>
+                <span class="nav-item-text">Credit Review</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='profile.html'">
+                <span class="nav-item-icon">👤</span>
+                <span class="nav-item-text">My Profile</span>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="logout-nav-item" onclick="logout()">
+                <span class="logout-nav-item-icon">🚪</span>
+                <span class="logout-nav-item-text">Logout</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+    <div class="main-content">
+        <div class="header">
+            <h2 style="color: #333;">Dashboard</h2>
+            <div class="header-right">
+                <div class="user-info" id="userEmail">user@example.com</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="welcome-section">
+                <h1>Welcome Back!</h1>
+                <p>Manage loan services from your dashboard.</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-left">
+                    <!-- Accounts Section -->
+                    <div class="accounts-section">
+                        <h2 class="section-header">My Accounts</h2>
+                        <div class="accounts-grid" id="accountsGrid">
+                            <!-- Accounts will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Summary Section -->
+                    <div class="accounts-section">
+                        <h2 class="section-header">Loan Summary</h2>
+                        <div class="summary-cards">
+                            <div class="summary-card">
+                                <div class="summary-label">Outstanding Loan</div>
+                                <div class="summary-value outstanding" id="outstandingLoan">KSH 0</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-label">Approved Limit</div>
+                                <div class="summary-value approved" id="approvedLimit">KSH 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Cards -->
+                    <div class="action-cards">
+                        <div class="action-card loan-card" onclick="applyForLoan()">
+                            <div class="action-card-icon">💰</div>
+                            <h2>Apply for a Loan</h2>
+                            <p>Apply for a new loan or check your available loan limit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-right">
+                    <!-- Credit Limit Review Section -->
+                    <div class="accounts-section">
+                        <h2 class="section-header">Credit Limit Review</h2>
+                        <div id="creditReviewContainer">
+                            <!-- Credit review card will be loaded here -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const email = localStorage.getItem('user_email');
+            if (!email) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = email;
+        }
+
+        function logout() {
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('access_token');
+            window.location.href = 'login.html';
+        }
+
+        function applyForLoan() {
+            window.location.href = 'loan-application.html';
+        }
+
+        function navigateTo(page) {
+            if (page === 'dashboard') {
+                // Already on dashboard
+                return;
+            }
+            alert(`${page} feature will be available soon!`);
+        }
+
+        /*
+         * BACKEND FUNCTIONALITY - Account Creation at Bank:
+         * 
+         * After loan approval, the bank system performs in real-time:
+         * 1. Creation of Bank Transaction Account - A dedicated transaction account created for:
+         *    - Loan disbursement (when customers borrow loans, the amount goes to this account)
+         *    - Future repayments (customers make repayments to this account)
+         * 2. Creation of Loan Account - Linked to customer profile and transaction account
+         * 3. Loan Booking - Approved loan amount booked with:
+         *    - Loan principal
+         *    - Fees
+         *    - Interest
+         *    - Insurance charges (on disbursements & Collections to Monarch)
+         *    - All charges distributed to relevant ledgers automatically
+         * 
+         * This data will be fetched from the backend and displayed here.
+         */
+
+        function loadAccounts() {
+            // Fetch account data from backend
+            // In production: GET /api/accounts
+            // Response will include transaction account and loan account details
+            
+            // Get account data from localStorage (simulated - will come from backend)
+            let transactionBalance = parseFloat(localStorage.getItem('transaction_balance')) || 0;
+            let loanBalance = parseFloat(localStorage.getItem('loan_balance')) || 0;
+            let transactionAccountNumber = localStorage.getItem('transaction_account_number') || '';
+            let loanAccountNumber = localStorage.getItem('loan_account_number') || '';
+            
+            // Check if there's a recent loan disbursement
+            const recentNetDisbursement = localStorage.getItem('recent_net_disbursement');
+            const recentLoanAmount = localStorage.getItem('recent_loan_amount');
+            
+            if (recentNetDisbursement && !transactionAccountNumber) {
+                // First loan - create accounts
+                transactionAccountNumber = 'ACC-' + Date.now().toString().slice(-8);
+                loanAccountNumber = 'LOAN-' + Date.now().toString().slice(-6);
+                
+                localStorage.setItem('transaction_account_number', transactionAccountNumber);
+                localStorage.setItem('loan_account_number', loanAccountNumber);
+            }
+            
+            // Calculate balances from all loans and withdrawals
+            const storedLoans = localStorage.getItem('user_loans');
+            if (storedLoans) {
+                try {
+                    const loans = JSON.parse(storedLoans);
+                    // Sum up all net disbursements for transaction account (current available balance after withdrawals)
+                    transactionBalance = loans.reduce((total, loan) => {
+                        return total + (parseFloat(loan.netDisbursement) || 0);
+                    }, 0);
+                    
+                    // Sum up all loan amounts for loan account (outstanding)
+                    loanBalance = loans.reduce((total, loan) => {
+                        return total + (parseFloat(loan.remainingBalance) || 0);
+                    }, 0);
+                    
+                    // Save calculated balances
+                    localStorage.setItem('transaction_balance', transactionBalance);
+                    localStorage.setItem('loan_balance', loanBalance);
+                } catch (e) {
+                    // If error, use stored balances
+                    transactionBalance = parseFloat(localStorage.getItem('transaction_balance')) || 0;
+                    loanBalance = parseFloat(localStorage.getItem('loan_balance')) || 0;
+                }
+            } else {
+                // Load existing balances if available
+                transactionBalance = parseFloat(localStorage.getItem('transaction_balance')) || 0;
+                loanBalance = parseFloat(localStorage.getItem('loan_balance')) || 0;
+            }
+            
+            const accounts = [
+                {
+                    type: 'Transaction Account',
+                    accountNumber: transactionAccountNumber,
+                    balance: transactionBalance,
+                    icon: '💳',
+                    iconClass: 'transaction'
+                },
+                {
+                    type: 'Loan Account',
+                    accountNumber: loanAccountNumber,
+                    balance: loanBalance,
+                    icon: '💰',
+                    iconClass: 'loan'
+                }
+            ];
+
+            const container = document.getElementById('accountsGrid');
+            
+            if (accounts.length === 0) {
+                container.innerHTML = '<p style="color: #666; padding: 20px;">No accounts found. Accounts will be created after loan approval.</p>';
+                return;
+            }
+
+            container.innerHTML = accounts.map(account => {
+                let description = '';
+                if (account.type === 'Transaction Account') {
+                    description = 'Loan disbursements and repayments';
+                } else if (account.type === 'Loan Account') {
+                    description = 'Loan balance and details';
+                }
+                
+                const accountNumber = account.accountNumber || 'Not available';
+                const balance = account.balance !== undefined ? 'KSH ' + account.balance.toLocaleString() : 'KSH 0';
+                
+                return `
+                <div class="account-card">
+                    <div class="account-card-header">
+                        <span class="account-type">${account.type}</span>
+                        <div class="account-icon ${account.iconClass}">${account.icon}</div>
+                    </div>
+                    <div class="account-number">Account: ${accountNumber || 'Not created yet'}</div>
+                    <div class="account-balance">${balance}</div>
+                    <div class="account-label">${account.type === 'Transaction Account' ? 'Available Balance' : 'Outstanding Balance'}</div>
+                    ${description ? `<div style="color: #999; font-size: 12px; margin-top: 8px;">${description}</div>` : ''}
+                </div>
+            `;
+            }).join('');
+        }
+
+        function loadLoanSummary() {
+            // Fetch loan summary from backend
+            // In production: GET /api/loan/summary
+            // Response will include: outstandingLoan, approvedLimit
+            
+            // Get data from localStorage (simulated - will come from backend)
+            let outstandingLoan = parseFloat(localStorage.getItem('loan_balance')) || 0;
+            let approvedLimit = parseFloat(localStorage.getItem('approved_loan_limit')) || 0;
+            
+            // Calculate outstanding from all loans
+            const storedLoans = localStorage.getItem('user_loans');
+            if (storedLoans) {
+                try {
+                    const loans = JSON.parse(storedLoans);
+                    // Sum remaining balance from all active loans
+                    outstandingLoan = loans
+                        .filter(loan => loan.status === 'active')
+                        .reduce((total, loan) => total + (parseFloat(loan.remainingBalance) || 0), 0);
+                } catch (e) {
+                    // Use stored value if error
+                    outstandingLoan = parseFloat(localStorage.getItem('loan_balance')) || 0;
+                }
+            }
+            
+            // If no approved limit, check recent loan amount
+            if (approvedLimit === 0) {
+                const recentLoanAmount = parseFloat(localStorage.getItem('recent_loan_amount')) || 0;
+                if (recentLoanAmount > 0) {
+                    approvedLimit = recentLoanAmount;
+                }
+            }
+
+            document.getElementById('outstandingLoan').textContent = 'KSH ' + outstandingLoan.toLocaleString();
+            document.getElementById('approvedLimit').textContent = 'KSH ' + approvedLimit.toLocaleString();
+        }
+
+        function loadCreditReview() {
+            /*
+             * CREDIT LIMIT REVIEW:
+             * 
+             * Every 2 months, the customer/agent can request a credit limit review.
+             * The portal triggers:
+             * - Fresh consent (if deemed necessary)
+             * - New/updated data sharing
+             * - Re-scoring by the bank
+             * - Update of loan limit based on performance
+             */
+
+            const container = document.getElementById('creditReviewContainer');
+            
+            // Get last review date from localStorage
+            const lastReviewDate = localStorage.getItem('last_credit_review_date');
+            const lastReviewTimestamp = lastReviewDate ? new Date(lastReviewDate).getTime() : null;
+            const now = new Date().getTime();
+            
+            // 2 months in milliseconds (approximately 60 days)
+            const twoMonths = 60 * 24 * 60 * 60 * 1000;
+            
+            let isEligible = false;
+            let daysRemaining = 0;
+            let nextReviewDate = null;
+            
+            if (lastReviewTimestamp) {
+                const timeSinceLastReview = now - lastReviewTimestamp;
+                if (timeSinceLastReview >= twoMonths) {
+                    isEligible = true;
+                } else {
+                    const daysElapsed = Math.floor(timeSinceLastReview / (24 * 60 * 60 * 1000));
+                    daysRemaining = 60 - daysElapsed;
+                    nextReviewDate = new Date(lastReviewTimestamp + twoMonths);
+                }
+            } else {
+                // No previous review, eligible immediately
+                isEligible = true;
+            }
+
+            const lastReviewDisplay = lastReviewDate 
+                ? new Date(lastReviewDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                : 'Never';
+
+            const nextReviewDisplay = nextReviewDate
+                ? nextReviewDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                : 'Available now';
+
+            const currentLimit = parseFloat(localStorage.getItem('approved_loan_limit')) || 0;
+            const currentLimitDisplay = currentLimit > 0 ? 'KSH ' + currentLimit.toLocaleString() : 'Not yet scored';
+
+            container.innerHTML = `
+                <div class="credit-review-card" onclick="${isEligible ? 'requestCreditReview()' : ''}">
+                    <div class="credit-review-header">
+                        <div class="credit-review-title-section">
+                            <div class="credit-review-title">Request Limit Review</div>
+                            <div class="credit-review-subtitle">Eligible every 2 months based on performance</div>
+                        </div>
+                        <button class="credit-review-icon-btn" onclick="event.stopPropagation(); requestCreditReview()">
+                            🔄
+                        </button>
+                    </div>
+                    <div class="credit-review-info-box">
+                        <div class="review-info-row">
+                            <span class="review-info-icon">📅</span>
+                            <div class="review-info-text">
+                                <span class="review-info-label">Last review:</span> ${lastReviewDisplay}<br>
+                                <span style="padding-left: 30px;">Next eligible: ${nextReviewDisplay}</span>
+                            </div>
+                        </div>
+                        <div class="review-info-row">
+                            <span class="review-info-icon">📈</span>
+                            <div class="review-info-text">
+                                <span class="review-info-label">Current Limit:</span> ${currentLimitDisplay}<br>
+                                <span style="padding-left: 30px;">Based on previous scoring</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-review-compact" ${!isEligible ? 'disabled' : ''} onclick="event.stopPropagation(); requestCreditReview()">
+                        <span>🔄</span>
+                        <span>Review Now</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        function requestCreditReview() {
+            /*
+             * CREDIT LIMIT REVIEW PROCESS:
+             * 
+             * 1. Fresh consent (if deemed necessary)
+             * 2. New/updated data sharing
+             * 3. Re-scoring by the bank
+             * 4. Update of loan limit based on performance
+             * 
+             * Navigate to credit review page
+             */
+            window.location.href = 'credit-review.html';
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Check authentication and load data on page load
+        checkAuth();
+        loadAccounts();
+        loadLoanSummary();
+        loadCreditReview();
+    </script>
+</body>
+</html>

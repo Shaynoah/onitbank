@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application Successful - Monarch Insurance Agency Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #154a32;
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1001;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #154a32;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .logout-nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            color: #ff6b6b;
+        }
+
+        .logout-nav-item:hover {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left-color: #ff6b6b;
+        }
+
+        .logout-nav-item-icon {
+            font-size: 20px;
+        }
+
+        .logout-nav-item-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-item-icon {
+            font-size: 20px;
+        }
+
+        .nav-item-text {
+            font-size: 14px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding-top: 70px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            width: calc(100% - 260px);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #1a5f3f;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #154a32;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 12px;
+            padding: 50px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: #d4edda;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 50px;
+            color: #1a5f3f;
+        }
+
+        .success-title {
+            color: #1a5f3f;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .loan-amount-card {
+            background: linear-gradient(135deg, #1a5f3f 0%, #154a32 100%);
+            border-radius: 12px;
+            padding: 30px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(26, 95, 63, 0.3);
+        }
+
+        .loan-amount-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .loan-amount-value {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #1a5f3f;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #154a32;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        /* Snackbar Notification Styles */
+        .snackbar-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .snackbar {
+            background: #1a5f3f;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 320px;
+            max-width: 500px;
+            animation: slideInUp 0.3s ease-out;
+            position: relative;
+        }
+
+        .snackbar.success {
+            background: #1a5f3f;
+        }
+
+        .snackbar-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .snackbar-content {
+            flex: 1;
+        }
+
+        .snackbar-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .snackbar-message {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .snackbar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+
+        .snackbar-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutDown {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+
+        .snackbar.hiding {
+            animation: slideOutDown 0.3s ease-out forwards;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 13px;
+            left: 13px;
+            z-index: 10002;
+            background: #154a32;
+            color: white;
+            border: none;
+            padding: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #1a5f3f;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+                padding: 10px 15px 10px 60px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 10px auto;
+            }
+
+            .success-card {
+                padding: 20px;
+            }
+
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+
+            .success-title {
+                font-size: 24px;
+            }
+
+            .success-message {
+                font-size: 14px;
+            }
+
+            .loan-amount-card {
+                padding: 20px;
+            }
+
+            .loan-amount-value {
+                font-size: 32px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .snackbar-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .snackbar {
+                min-width: auto;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .success-card {
+                padding: 15px;
+            }
+
+            .success-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+
+            .success-title {
+                font-size: 20px;
+            }
+
+            .loan-amount-value {
+                font-size: 28px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/logo.png" alt="Monarch Insurance Logo">
+            </div>
+            <div class="sidebar-title">Monarch Insurance Agency Portal</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-text">Dashboard</span>
+            </div>
+            <div class="nav-item active">
+                <span class="nav-item-icon">💰</span>
+                <span class="nav-item-text">Loan Application</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='my-loans.html'">
+                <span class="nav-item-icon">📋</span>
+                <span class="nav-item-text">View my Loans</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='profile.html'">
+                <span class="nav-item-icon">👤</span>
+                <span class="nav-item-text">My Profile</span>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="logout-nav-item" onclick="logout()">
+                <span class="logout-nav-item-icon">🚪</span>
+                <span class="logout-nav-item-text">Logout</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+    <div class="main-content">
+        <div class="header">
+            <div></div>
+            <div class="header-right">
+                <div class="user-info" id="userEmail">user@example.com</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="success-card">
+                <div class="success-icon">✓</div>
+                <h1 class="success-title">Loan Application Successful!</h1>
+                <p class="success-message">
+                    Your loan application has been approved and processed successfully.<br>
+                    The amount will be disbursed to your account shortly.
+                </p>
+
+                <div class="loan-amount-card">
+                    <div class="loan-amount-label">Loan Amount Disbursed</div>
+                    <div class="loan-amount-value" id="loanAmount">KSH 0</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='dashboard.html'">
+                        Back to Dashboard
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="viewMyLoans()">
+                        View my Loans
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snackbar Notification Container -->
+    <div class="snackbar-container" id="snackbarContainer"></div>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const email = localStorage.getItem('user_email');
+            if (!email) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = email;
+        }
+
+        function logout() {
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('access_token');
+            window.location.href = 'login.html';
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('mobile-open');
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768 && sidebar && menuToggle) {
+                if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        function navigateTo(page) {
+            alert(`${page} feature will be available soon!`);
+        }
+
+        function viewMyLoans() {
+            window.location.href = 'my-loans.html';
+        }
+
+        // Display loan amount from URL parameter
+        function displayLoanAmount() {
+            // Get loan amount from URL or fetch from backend
+            // In production: GET /api/loan/disbursed-amount
+            const urlParams = new URLSearchParams(window.location.search);
+            let netDisbursement = urlParams.get('net');
+            let loanAmount = urlParams.get('amount');
+            
+            // Parse numeric values
+            let netAmount = 0;
+            let loanAmt = 0;
+            
+            if (netDisbursement) {
+                netAmount = parseFloat(netDisbursement.replace(/[KSH,\s]/g, '')) || 0;
+            }
+            
+            if (loanAmount) {
+                loanAmt = parseFloat(loanAmount.replace(/[KSH,\s]/g, '')) || 0;
+            }
+            
+            // Try localStorage as fallback
+            if (netAmount === 0) {
+                const storedNet = localStorage.getItem('net_disbursement');
+                if (storedNet) {
+                    netAmount = parseFloat(storedNet) || 0;
+                }
+            }
+            
+            if (loanAmt === 0) {
+                const storedLoan = localStorage.getItem('loan_amount');
+                if (storedLoan) {
+                    loanAmt = parseFloat(storedLoan) || 0;
+                }
+            }
+            
+            // Create new loan record with unique ID
+            if (loanAmt > 0 && netAmount > 0) {
+                const today = new Date();
+                const dueDate = new Date(today);
+                dueDate.setMonth(dueDate.getMonth() + 12); // 12 months tenure
+                
+                // Generate unique Loan ID
+                const loanId = 'LOAN-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+                
+                // Get existing loans
+                let existingLoans = [];
+                const storedLoans = localStorage.getItem('user_loans');
+                if (storedLoans) {
+                    try {
+                        existingLoans = JSON.parse(storedLoans);
+                    } catch (e) {
+                        existingLoans = [];
+                    }
+                }
+                
+                // Create new loan record
+                const newLoan = {
+                    id: loanId,
+                    amount: loanAmt,
+                    netDisbursement: netAmount,
+                    status: 'active',
+                    interestRate: '1.5% p.m.',
+                    tenure: '12 months',
+                    disbursedDate: today.toISOString().split('T')[0],
+                    dueDate: dueDate.toISOString().split('T')[0],
+                    remainingBalance: loanAmt,
+                    nextPayment: Math.round(loanAmt / 12),
+                    nextPaymentDate: new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()).toISOString().split('T')[0]
+                };
+                
+                // Add new loan to existing loans
+                existingLoans.push(newLoan);
+                
+                // Save all loans
+                localStorage.setItem('user_loans', JSON.stringify(existingLoans));
+                
+                // Update account balances (cumulative)
+                let currentTransactionBalance = parseFloat(localStorage.getItem('transaction_balance')) || 0;
+                let currentLoanBalance = parseFloat(localStorage.getItem('loan_balance')) || 0;
+                
+                // Add new loan amounts to existing balances
+                currentTransactionBalance += netAmount;
+                currentLoanBalance += loanAmt;
+                
+                localStorage.setItem('transaction_balance', currentTransactionBalance);
+                localStorage.setItem('loan_balance', currentLoanBalance);
+                localStorage.setItem('recent_net_disbursement', netAmount);
+                localStorage.setItem('recent_loan_amount', loanAmt);
+            }
+            
+            // Display the net disbursement amount
+            document.getElementById('loanAmount').textContent = 'KSH ' + netAmount.toLocaleString();
+            
+            // Show snackbar notification for successful disbursement
+            if (netAmount > 0) {
+                showDisbursementNotification(netAmount);
+            }
+        }
+
+        /*
+         * LOAN DISBURSEMENT NOTIFICATION:
+         * 
+         * When a loan is successfully disbursed:
+         * 1. The net loan amount is credited to the customer's transaction account
+         * 2. The customer is notified via:
+         *    - SMS (backend implementation)
+         *    - Email (backend implementation)
+         *    - Portal notification (snackbar - implemented below)
+         */
+        function showDisbursementNotification(amount) {
+            const snackbarContainer = document.getElementById('snackbarContainer');
+            
+            const snackbar = document.createElement('div');
+            snackbar.className = 'snackbar success';
+            snackbar.innerHTML = `
+                <div class="snackbar-icon">✓</div>
+                <div class="snackbar-content">
+                    <div class="snackbar-title">Loan Disbursed Successfully!</div>
+                    <div class="snackbar-message">
+                        KSH ${amount.toLocaleString()} has been credited to your transaction account. 
+                        You will also receive SMS and email notifications shortly.
+                    </div>
+                </div>
+                <button class="snackbar-close" onclick="closeSnackbar(this)">×</button>
+            `;
+            
+            snackbarContainer.appendChild(snackbar);
+            
+            // Auto-dismiss after 8 seconds
+            setTimeout(() => {
+                closeSnackbar(snackbar.querySelector('.snackbar-close'));
+            }, 8000);
+        }
+
+        function closeSnackbar(closeButton) {
+            const snackbar = closeButton.closest('.snackbar');
+            if (snackbar) {
+                snackbar.classList.add('hiding');
+                setTimeout(() => {
+                    snackbar.remove();
+                }, 300);
+            }
+        }
+
+        // Check authentication and display loan amount on page load
+        checkAuth();
+        displayLoanAmount();
+    </script>
+</body>
+</html>

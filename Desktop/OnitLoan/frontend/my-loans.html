@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Loans - Monarch Insurance Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #154a32;
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1001;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #154a32;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .logout-nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            color: #ff6b6b;
+            animation: slideInLeft 0.5s ease-out 0.45s both;
+        }
+
+        .logout-nav-item:hover {
+            background-color: rgba(255, 107, 107, 0.15);
+            border-left-color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        .logout-nav-item-icon {
+            font-size: 20px;
+        }
+
+        .logout-nav-item-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            animation: slideInLeft 0.5s ease-out both;
+        }
+
+        .nav-item:nth-child(1) { animation-delay: 0.1s; }
+        .nav-item:nth-child(2) { animation-delay: 0.15s; }
+        .nav-item:nth-child(3) { animation-delay: 0.2s; }
+        .nav-item:nth-child(4) { animation-delay: 0.25s; }
+        .nav-item:nth-child(5) { animation-delay: 0.3s; }
+        .nav-item:nth-child(6) { animation-delay: 0.35s; }
+        .nav-item:nth-child(7) { animation-delay: 0.4s; }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-item-icon {
+            font-size: 20px;
+        }
+
+        .nav-item-text {
+            font-size: 14px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding-top: 70px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+            position: relative;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            width: calc(100% - 260px);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #1a5f3f;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #154a32;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .loan-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .loan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .loan-info {
+            flex: 1;
+        }
+
+        .loan-id {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .loan-amount {
+            color: #1a5f3f;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .loan-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .loan-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .detail-box {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .loan-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-withdraw {
+            background: #1a5f3f;
+            color: white;
+        }
+
+        .btn-withdraw:hover {
+            background: #154a32;
+            box-shadow: 0 4px 12px rgba(21, 74, 50, 0.3);
+        }
+
+        .btn-repay {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-repay:hover {
+            background: #f57c00;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-view-more {
+            background: #1a5f3f;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: fadeIn 0.5s ease-out 0.3s both;
+        }
+
+        .btn-view-more:hover {
+            background: #154a32;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(26, 95, 63, 0.4);
+        }
+
+        .btn-view-more:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .empty-state {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 12px;
+        }
+
+        .empty-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .empty-message {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            margin-top: 15px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .history-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .history-table-header {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1.2fr 1fr 1fr;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .history-table-row {
+            padding: 10px 15px;
+            display: grid;
+            grid-template-columns: 1.2fr 2fr 1.2fr 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.4s ease-out both;
+        }
+
+        .history-table-row:nth-child(1) { animation-delay: 0.1s; }
+        .history-table-row:nth-child(2) { animation-delay: 0.15s; }
+        .history-table-row:nth-child(3) { animation-delay: 0.2s; }
+        .history-table-row:nth-child(4) { animation-delay: 0.25s; }
+        .history-table-row:nth-child(5) { animation-delay: 0.3s; }
+
+        .history-table-row:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .history-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .history-cell {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .history-cell-id {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .history-cell-amount {
+            font-weight: 600;
+            color: #1a5f3f;
+            font-size: 15px;
+        }
+
+        .history-cell-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .history-cell-date {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .history-cell-balance {
+            font-weight: 600;
+            color: #f57c00;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 13px;
+            left: 13px;
+            z-index: 10002;
+            background: #154a32;
+            color: white;
+            border: none;
+            padding: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #1a5f3f;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+                padding: 10px 15px 10px 60px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 10px auto;
+            }
+
+            .page-header {
+                margin-bottom: 12px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .loan-card {
+                padding: 12px;
+            }
+
+            .loan-details-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .loan-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .history-table {
+                overflow-x: auto;
+            }
+
+            .history-table-header,
+            .history-table-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .history-cell {
+                padding: 8px;
+                text-align: left;
+            }
+
+            .history-cell::before {
+                content: attr(data-label) ": ";
+                font-weight: 600;
+                color: #666;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .loan-card {
+                padding: 10px;
+            }
+
+            .detail-box {
+                padding: 10px;
+            }
+
+            .detail-label {
+                font-size: 12px;
+            }
+
+            .detail-value {
+                font-size: 18px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+                padding: 10px 15px 10px 60px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 10px auto;
+            }
+
+            .page-header {
+                margin-bottom: 12px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .loan-card {
+                padding: 12px;
+            }
+
+            .loan-details-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .loan-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .history-table {
+                overflow-x: auto;
+            }
+
+            .history-table-header,
+            .history-table-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .history-table-header {
+                display: none;
+            }
+
+            .history-table-row {
+                border-bottom: 2px solid #e0e0e0;
+                padding: 15px;
+            }
+
+            .history-cell::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #666;
+                font-size: 11px;
+                text-transform: uppercase;
+                display: block;
+                margin-bottom: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .loan-card {
+                padding: 10px;
+            }
+
+            .detail-box {
+                padding: 10px;
+            }
+
+            .detail-label {
+                font-size: 12px;
+            }
+
+            .detail-value {
+                font-size: 18px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/logo.png" alt="Monarch Insurance Logo">
+            </div>
+            <div class="sidebar-title">Monarch Insurance Agency Portal</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-text">Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='loan-application.html'">
+                <span class="nav-item-icon">💰</span>
+                <span class="nav-item-text">Apply for Loan</span>
+            </div>
+            <div class="nav-item active">
+                <span class="nav-item-icon">📋</span>
+                <span class="nav-item-text">View my Loans</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='withdraw-loan.html'">
+                <span class="nav-item-icon">💸</span>
+                <span class="nav-item-text">Withdraw</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='repay-loan.html'">
+                <span class="nav-item-icon">💳</span>
+                <span class="nav-item-text">Repay Loan</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='profile.html'">
+                <span class="nav-item-icon">👤</span>
+                <span class="nav-item-text">My Profile</span>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="logout-nav-item" onclick="logout()">
+                <span class="logout-nav-item-icon">🚪</span>
+                <span class="logout-nav-item-text">Logout</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+    <div class="main-content">
+        <div class="header">
+            <div></div>
+            <div class="header-right">
+                <div class="user-info" id="userEmail">user@example.com</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">My Loans</h1>
+            </div>
+
+            <!-- Active Loans Section -->
+            <h2 class="section-title">Active Loans</h2>
+            <div id="loansContainer">
+                <!-- Active loans will be dynamically loaded here -->
+            </div>
+
+            <!-- Recent Activities Section -->
+            <h2 class="section-title">Recent Activities</h2>
+            <div id="loanHistoryContainer">
+                <!-- Recent activities will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const email = localStorage.getItem('user_email');
+            if (!email) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('userEmail').textContent = email;
+        }
+
+        function logout() {
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('access_token');
+            window.location.href = 'login.html';
+        }
+
+        function navigateTo(page) {
+            alert(`${page} feature will be available soon!`);
+        }
+
+        // Fetch loan data from backend
+        function loadLoans() {
+            // In production: GET /api/loans
+            // Response will include array of user's loans
+            
+            // Get all loans from localStorage (simulated - will come from backend)
+            // In production: GET /api/loans - will return all user's loans
+            const storedLoans = localStorage.getItem('user_loans');
+            let loans = [];
+            
+            if (storedLoans) {
+                try {
+                    loans = JSON.parse(storedLoans);
+                    // Sort by disbursed date (newest first)
+                    loans.sort((a, b) => new Date(b.disbursedDate) - new Date(a.disbursedDate));
+                } catch (e) {
+                    loans = [];
+                }
+            }
+
+            // Separate active and all loans
+            // Active loans are those with remaining balance > 0
+            const activeLoans = loans.filter(loan => {
+                const remainingBalance = parseFloat(loan.remainingBalance) || 0;
+                return remainingBalance > 0 && loan.status !== 'completed';
+            });
+            const container = document.getElementById('loansContainer');
+
+            if (activeLoans.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h2 class="empty-title">No Active Loans</h2>
+                        <p class="empty-message">You don't have any active loans. Apply for a loan to get started.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = activeLoans.map(loan => {
+                    const loanId = loan.id || 'N/A';
+                    // Display the actual loan amount taken
+                    const amount = loan.amount !== undefined ? parseFloat(loan.amount) : 0;
+                    const amountDisplay = 'KSH ' + amount.toLocaleString();
+                    
+                    const remainingBalance = loan.remainingBalance !== undefined ? parseFloat(loan.remainingBalance) : 0;
+                    const remainingBalanceDisplay = 'KSH ' + remainingBalance.toLocaleString();
+                    
+                    const nextPayment = loan.nextPayment !== undefined ? parseFloat(loan.nextPayment) : 0;
+                    const nextPaymentDisplay = 'KSH ' + nextPayment.toLocaleString();
+                    
+                    const availableBalance = loan.netDisbursement !== undefined ? parseFloat(loan.netDisbursement) : 0;
+                    const availableBalanceDisplay = 'KSH ' + availableBalance.toLocaleString();
+                    
+                    return `
+                    <div class="loan-card">
+                        <div class="loan-header">
+                            <div class="loan-info">
+                                <div class="loan-id">Loan ID: ${loanId}</div>
+                                <div class="loan-amount">${amountDisplay}</div>
+                                <span class="loan-status status-${loan.status}">${loan.status.toUpperCase()}</span>
+                            </div>
+                        </div>
+                        <div class="loan-details">
+                            <div class="detail-box">
+                                <div class="detail-label">Loan Amount Taken</div>
+                                <div class="detail-value">${amountDisplay}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Available Balance</div>
+                                <div class="detail-value" style="color: #1a5f3f; font-weight: 700;">${availableBalanceDisplay}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Interest Rate</div>
+                                <div class="detail-value">${loan.interestRate || '1.5% p.m.'}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Tenure</div>
+                                <div class="detail-value">${loan.tenure || 'N/A'}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Disbursed Date</div>
+                                <div class="detail-value">${loan.disbursedDate || 'N/A'}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Due Date</div>
+                                <div class="detail-value">${loan.dueDate || 'N/A'}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Remaining Balance</div>
+                                <div class="detail-value">${remainingBalanceDisplay}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Next Payment</div>
+                                <div class="detail-value">${nextPaymentDisplay}</div>
+                            </div>
+                        </div>
+                        <div class="loan-actions">
+                        <button class="btn btn-withdraw" onclick="withdrawLoan('${loanId}')" ${availableBalance <= 0 ? 'disabled' : ''}>
+                            💰 Withdraw
+                        </button>
+                            <button class="btn btn-repay" onclick="repayLoan('${loanId}')">
+                                💳 Repay
+                            </button>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+            }
+
+            // Load recent activities
+            loadRecentActivities(loans);
+        }
+
+        // Load recent activities (disbursements, withdrawals, repayments)
+        function loadRecentActivities(loans) {
+            const historyContainer = document.getElementById('loanHistoryContainer');
+            const activities = [];
+
+            // Add loan disbursements
+            if (loans && loans.length > 0) {
+                loans.forEach(loan => {
+                    if (loan.disbursedDate) {
+                        activities.push({
+                            type: 'disbursement',
+                            icon: '💰',
+                            title: 'Loan Disbursed',
+                            description: `Loan ID: ${loan.id || 'N/A'}`,
+                            amount: parseFloat(loan.amount) || 0,
+                            date: loan.disbursedDate,
+                            timestamp: new Date(loan.disbursedDate).getTime() || Date.now(),
+                            loanId: loan.id
+                        });
+                    }
+                });
+            }
+
+            // Add withdrawals
+            const storedWithdrawals = localStorage.getItem('withdrawals');
+            if (storedWithdrawals) {
+                try {
+                    const withdrawals = JSON.parse(storedWithdrawals);
+                    withdrawals.forEach(withdrawal => {
+                        activities.push({
+                            type: 'withdrawal',
+                            icon: '💸',
+                            title: 'Withdrawal',
+                            description: `${withdrawal.provider === 'mpesa' ? 'M-PESA' : 'Airtel Money'} - ${withdrawal.phoneNumber || 'N/A'}`,
+                            amount: parseFloat(withdrawal.amount) || 0,
+                            date: withdrawal.date || new Date().toISOString().split('T')[0],
+                            timestamp: withdrawal.timestamp || Date.now(),
+                            loanId: withdrawal.loanId
+                        });
+                    });
+                } catch (e) {
+                    console.error('Error parsing withdrawals:', e);
+                }
+            }
+
+            // Add repayments
+            const storedRepayments = localStorage.getItem('repayments');
+            if (storedRepayments) {
+                try {
+                    const repayments = JSON.parse(storedRepayments);
+                    repayments.forEach(repayment => {
+                        activities.push({
+                            type: 'repayment',
+                            icon: '💳',
+                            title: 'Repayment',
+                            description: `${repayment.provider === 'mpesa' ? 'M-PESA' : 'Airtel Money'} Payment`,
+                            amount: parseFloat(repayment.amount) || 0,
+                            date: repayment.date || new Date().toISOString().split('T')[0],
+                            timestamp: repayment.timestamp || Date.now(),
+                            loanId: repayment.loanId
+                        });
+                    });
+                } catch (e) {
+                    console.error('Error parsing repayments:', e);
+                }
+            }
+
+            if (activities.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <h2 class="empty-title">No Recent Activities</h2>
+                        <p class="empty-message">Your recent activities will appear here once you take a loan, make a withdrawal, or repayment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by timestamp (newest first)
+            activities.sort((a, b) => b.timestamp - a.timestamp);
+
+            // Store all activities for view more functionality
+            window.allActivities = activities;
+            const showAll = window.showAllActivities || false;
+            const displayedActivities = showAll ? activities : activities.slice(0, 5);
+            const hasMore = activities.length > 5;
+
+            historyContainer.innerHTML = `
+                <div class="history-table">
+                    <div class="history-table-header">
+                        <div>Activity</div>
+                        <div>Description</div>
+                        <div>Amount</div>
+                        <div>Date</div>
+                        <div>Loan ID</div>
+                    </div>
+                    ${displayedActivities.map(activity => {
+                        const amountDisplay = 'KSH ' + activity.amount.toLocaleString();
+                        const dateDisplay = activity.date || 'N/A';
+                        const amountColor = activity.type === 'disbursement' ? '#1a5f3f' : 
+                                          activity.type === 'withdrawal' ? '#ff9800' : 
+                                          '#28a745';
+                        
+                        return `
+                            <div class="history-table-row">
+                                <div class="history-cell" data-label="Activity">
+                                    <span style="font-size: 18px; margin-right: 8px;">${activity.icon}</span>
+                                    <span>${activity.title}</span>
+                                </div>
+                                <div class="history-cell" data-label="Description">${activity.description}</div>
+                                <div class="history-cell history-cell-amount" data-label="Amount" style="color: ${amountColor}; font-weight: 600;">
+                                    ${activity.type === 'repayment' ? '-' : '+'}${amountDisplay}
+                                </div>
+                                <div class="history-cell history-cell-date" data-label="Date">${dateDisplay}</div>
+                                <div class="history-cell history-cell-id" data-label="Loan ID">${activity.loanId || 'N/A'}</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                ${hasMore ? `
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="btn-view-more" onclick="toggleViewMore()">
+                            ${showAll ? 'View Less' : `View More (${activities.length - 5} more)`}
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        function toggleViewMore() {
+            window.showAllActivities = !window.showAllActivities;
+            const loans = [];
+            const storedLoans = localStorage.getItem('user_loans');
+            if (storedLoans) {
+                try {
+                    const parsedLoans = JSON.parse(storedLoans);
+                    loans.push(...parsedLoans);
+                } catch (e) {
+                    console.error('Error parsing loans:', e);
+                }
+            }
+            loadRecentActivities(loans);
+        }
+
+        function withdrawLoan(loanId) {
+            /*
+             * WITHDRAWAL TO MOBILE MONEY:
+             * 
+             * 1. From within the Monarch Portal, the customer selects "Withdraw Loan"
+             * 2. The system uses the registered mobile number to initiate the settlement
+             * 3. The bank processes:
+             *    - Transfer from the transaction account
+             *    - Settlement via mobile money (M-PESA or Airtel Money)
+             * 4. Customer receives funds instantly
+             * 
+             * Navigate to withdrawal page with loan ID
+             */
+            window.location.href = `withdraw-loan.html?loanId=${loanId}`;
+        }
+
+        function repayLoan(loanId) {
+            /*
+             * REPAYMENT PROCESS:
+             * 
+             * 8.2 STK Push:
+             * - Customer selects payment channel (M-PESA/Airtel Money)
+             * - OTP is verified from Onit Bank
+             * - STK push is sent to customer's registered phone
+             * - Customer enters PIN and confirms
+             * 
+             * 8.3 Payment Allocation:
+             * 1. Mobile money → Bank transaction account
+             * 2. Transaction account → Loan account
+             * 3. Loan balance updated in real time
+             */
+            window.location.href = `repay-loan.html?loanId=${loanId}`;
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Check authentication and load loans on page load
+        checkAuth();
+        loadLoans();
+    </script>
+</body>
+</html>
