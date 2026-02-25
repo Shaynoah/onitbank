@@ -1,4 +1,4 @@
 [build]
   base = "Downloads/onit-master/"
   command = "npm run build"
-  publish = "Downloads/onit-master/dist"
+  publish = "dist"
