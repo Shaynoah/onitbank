@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import historyImg from '../images/Our History.jpg'
 import ken from '../images/ken.jpg'
-import liz from '../images/liz.png'
+import liz from '../images/liz.jpg'
 
 const About = () => {
   const [open, setOpen] = useState(null)

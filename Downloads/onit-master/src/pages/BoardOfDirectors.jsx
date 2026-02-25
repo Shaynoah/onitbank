@@ -1,6 +1,6 @@
 import React from 'react'
 import ken from '../images/ken.jpg'
-import liz from '../images/liz.png'
+import liz from '../images/liz.jpg'
 
 const SeniorManagement = () => {
   const members = [
